@@ -1,59 +1,101 @@
 package com.example.demo;
 
 
-import com.attractions.dao.DbUtil;
+import com.attractions.dao.CityAreaDao;
 import com.attractions.dao.ScenicspotInfoDao;
-import com.attractions.server.Result;
-import com.attractions.server.ScenicspotInfo;
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.attractions.server.*;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.lang.String;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 public class Control {
 
+    /**
+     * 根据城市查询景点信息
+     *
+     * @param result
+     * @return
+     */
     @CrossOrigin
-    @RequestMapping(value = "/hello", produces = "application/json;charset=UTF-8")
-    public ArrayList<ScenicspotInfo> queryInfo(@RequestBody Result result) {
-        try {
-            ScenicspotInfoDao scenicspotInfoDao = new ScenicspotInfoDao();
-            ArrayList<ScenicspotInfo> arr = new ArrayList<>();
-            String cityName = result.getCityName();
-            String sql = "";
-            String type = result.getType();
-            if(type.equals("")){
-                sql = "select DISTINCT * from scenicspot_info where city = '" + cityName + "' LIMIT 0 ,30;";
-            }else{
-                sql = "select DISTINCT * from scenicspot_info where city = '" + cityName + "' and type = '"+type+"' LIMIT 0 ,30;";
-            }
-
-            ResultSet resultSet = scenicspotInfoDao.queryInfo(sql);
-            while (resultSet.next()) {
-                ScenicspotInfo scenicspotInfo = new ScenicspotInfo();
-                scenicspotInfo.setName(resultSet.getString("name"));
-                scenicspotInfo.setLevel(resultSet.getString("level"));
-                scenicspotInfo.setImgUrl(resultSet.getString("image_url"));
-                scenicspotInfo.setPrice(resultSet.getInt("price"));
-                scenicspotInfo.setInfo(resultSet.getString("intro"));
-                scenicspotInfo.setArea(resultSet.getString("area"));
-                arr.add(scenicspotInfo);
-            }
-            return arr;
-        } catch (SQLException e) {
-            e.printStackTrace();
+    @RequestMapping(value = "/scenicspotInfo", produces = "application/json;charset=UTF-8")
+    public ArrayList<ScenicspotInfo> cityToQueryAttraction(@RequestBody CityToQueryAttractionResult result) {
+        ScenicspotInfoDao scenicspotInfoDao = new ScenicspotInfoDao();
+        String cityName = result.getCityName();
+        String type = result.getType();
+        String sql = "";
+        if (type.equals("")) {
+            sql = "select DISTINCT * from scenicspot_info where city = '" + cityName + "' LIMIT 0 ,30;";
+        } else {
+            sql = "select DISTINCT * from scenicspot_info where city = '" + cityName + "' and type = '" + type + "' LIMIT 0 ,30;";
         }
-        return null;
+        ArrayList<ScenicspotInfo> arr = scenicspotInfoDao.queryInfo(sql);
+        scenicspotInfoDao.closeCon();
+        return arr;
     }
 
-    @RequestMapping("/test")
-    public String test (){
-        return "hello";
+    /**
+     * 根据景点名查询景点信息
+     *
+     * @param result
+     * @return
+     */
+    @CrossOrigin
+    @RequestMapping("/attrInfo")
+    public ArrayList<ScenicspotInfo> attrNameToQueryAttraction(@RequestBody AttrNameToQueryAttractionResult result) {
+        ScenicspotInfoDao scenicspotInfoDao = new ScenicspotInfoDao();
+        String attrName = result.getAttrName();
+        String sql = "select DISTINCT * from scenicspot_info where name = '" + attrName + "' limit 0 ,1";
+        ArrayList<ScenicspotInfo> arr = scenicspotInfoDao.queryInfo(sql);
+        scenicspotInfoDao.closeCon();
+        return arr;
     }
+
+    /**
+     * 根据景点区域和景点价格查询景点信息
+     *
+     * @param result
+     * @return ArrayList
+     */
+    @CrossOrigin
+    @RequestMapping("/attrArr")
+    public ArrayList<ScenicspotInfo> attrMoneyToAttraction(@RequestBody AttrMoneyToAttraction result) {
+        ScenicspotInfoDao scenicspotInfoDao = new ScenicspotInfoDao();
+        String cityName = result.getCityName();
+        String area = result.getArea();
+        int minMoney = result.getMinMoney();
+        int maxMoney = result.getMaxMoney();
+        String sql = "";
+        if (area.equals("") && maxMoney > minMoney) {
+            sql = "select DISTINCT * from scenicspot_info where city = '" + cityName + "' and price > " + minMoney + " and price < " + maxMoney + " limit 0 ,30;";
+        } else if (area.equals("") && minMoney >= maxMoney) {
+            sql = "select DISTINCT * from scenicspot_info where city = '" + cityName + "' and price > " + minMoney + " limit 0 ,30;";
+        }else if(!area.equals("") && minMoney >= maxMoney){
+            sql="select DISTINCT * from scenicspot_info where city = '" + cityName + "' and area = '" + area + "' and price > " + minMoney + " limit 0 ,30;";
+        }else {
+            sql = "select DISTINCT * from scenicspot_info where city = '" + cityName + "' and area = '" + area + "' and price > " + minMoney + " and price < " + maxMoney + " limit 0 ,30;";
+        }
+        ArrayList<ScenicspotInfo> arr = scenicspotInfoDao.queryInfo(sql);
+        scenicspotInfoDao.closeCon();
+        return arr;
+    }
+
+    /**
+     * 根据城市名查询城市区域列表
+     * @param result
+     * @return
+     */
+    @CrossOrigin
+    @RequestMapping("/cityArea")
+    public ArrayList<CityArea> cityNameToCityArea(@RequestBody CityNameToCityArea result){
+        CityAreaDao cityAreaDao = new CityAreaDao();
+        String cityName = result.getCityName();
+        String sql = "select DISTINCT area from scenicspot_info where city = '" + cityName + "'";
+        ArrayList<CityArea> arr = cityAreaDao.queryInfo(sql);
+        cityAreaDao.closeCon();
+        return arr;
+    }
+
 }

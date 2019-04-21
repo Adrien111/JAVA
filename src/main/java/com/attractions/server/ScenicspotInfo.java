@@ -33,6 +33,34 @@ public class ScenicspotInfo {
      */
     private String area;
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    /**
+     *
+     * 景点热度
+     */
+    private float heat;
+
+    /**
+     * 景点地址
+     *
+     */
+    public String address;
+
+    public float getHeat() {
+        return heat;
+    }
+
+    public void setHeat(float heat) {
+        this.heat = heat;
+    }
+
     public String getName() {
         return name;
     }

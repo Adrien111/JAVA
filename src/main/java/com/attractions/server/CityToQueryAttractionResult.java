@@ -6,7 +6,7 @@ package com.attractions.server;
  * @auther leidian
  * @date 2019/04/18
  */
-public class Result {
+public class CityToQueryAttractionResult {
 
     /**
      * 城市名
