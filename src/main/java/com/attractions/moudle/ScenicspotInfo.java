@@ -1,4 +1,4 @@
-package com.attractions.server;
+package com.attractions.moudle;
 
 /**
  * 关于景点信息的实体类
@@ -10,12 +10,29 @@ public class ScenicspotInfo {
 
     /**
      * /景点名称
-      */
+     */
     private String name;
     /**
      * 景点级别
      */
     private String level;
+
+    /**
+     * 景点id
+     */
+    private String id;
+    /**
+     * 景点所在城市
+     */
+    private String city;
+    /**
+     * 景点经度
+     */
+    private String LONG;
+    /**
+     * 景点维度
+     */
+    private String LAT;
     /**
      * 景点图片地址
      */
@@ -32,6 +49,21 @@ public class ScenicspotInfo {
      * 景点所在区域
      */
     private String area;
+    /**
+     * 景点热度
+     */
+    private float heat;
+
+    /**
+     * 景点地址
+     */
+    private String address;
+
+    /**
+     * 景点类型
+     */
+    private String type;
+
 
     public String getAddress() {
         return address;
@@ -41,17 +73,6 @@ public class ScenicspotInfo {
         this.address = address;
     }
 
-    /**
-     *
-     * 景点热度
-     */
-    private float heat;
-
-    /**
-     * 景点地址
-     *
-     */
-    public String address;
 
     public float getHeat() {
         return heat;
@@ -107,5 +128,45 @@ public class ScenicspotInfo {
 
     public void setArea(String area) {
         this.area = area;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getLONG() {
+        return LONG;
+    }
+
+    public void setLONG(String LONG) {
+        this.LONG = LONG;
+    }
+
+    public String getLAT() {
+        return LAT;
+    }
+
+    public void setLAT(String LAT) {
+        this.LAT = LAT;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

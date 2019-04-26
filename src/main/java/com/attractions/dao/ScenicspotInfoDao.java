@@ -1,15 +1,9 @@
 package com.attractions.dao;
 
-import com.attractions.server.ScenicspotInfo;
+import com.attractions.moudle.ScenicspotInfo;
 
-import java.io.InputStream;
-import java.io.Reader;
-import java.math.BigDecimal;
-import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Map;
 
 /**
  * 关于操作景点信息表的操作
@@ -34,6 +28,8 @@ public class ScenicspotInfoDao extends BaseDao {
                 scenicspotInfo.setArea(resultSet.getString("area"));
                 scenicspotInfo.setHeat(resultSet.getFloat("heat"));
                 scenicspotInfo.setAddress(resultSet.getString("address"));
+                scenicspotInfo.setId(resultSet.getString("id"));
+                scenicspotInfo.setType(resultSet.getString("type"));
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -66,5 +62,4 @@ public class ScenicspotInfoDao extends BaseDao {
     public boolean UpdateInfo(String sql){
             return update(sql);
     }
-
 }

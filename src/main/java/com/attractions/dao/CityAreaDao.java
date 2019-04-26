@@ -1,7 +1,6 @@
 package com.attractions.dao;
 
-import com.attractions.server.CityArea;
-import com.attractions.server.ScenicspotInfo;
+import com.attractions.moudle.CityArea;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

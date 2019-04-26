@@ -1,4 +1,4 @@
-package com.attractions.server;
+package com.attractions.moudle;
 
 
 /**

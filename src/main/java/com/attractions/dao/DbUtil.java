@@ -43,10 +43,4 @@ public class DbUtil {
         }
     }
 
-//    public static void main(String[] args) {
-//        // TODO Auto-generated method stub
-//        DbUtil dbUtil = new DbUtil();
-//        dbUtil.getConnection();
-//    }
-
 }

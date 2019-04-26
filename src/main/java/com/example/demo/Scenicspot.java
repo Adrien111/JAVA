@@ -3,15 +3,16 @@ package com.example.demo;
 
 import com.attractions.dao.CityAreaDao;
 import com.attractions.dao.ScenicspotInfoDao;
+import com.attractions.moudle.CityArea;
+import com.attractions.moudle.ScenicspotInfo;
 import com.attractions.server.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.String;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @RestController
-public class Control {
+public class Scenicspot {
 
     /**
      * 根据城市查询景点信息
@@ -24,13 +25,7 @@ public class Control {
     public ArrayList<ScenicspotInfo> cityToQueryAttraction(@RequestBody CityToQueryAttractionResult result) {
         ScenicspotInfoDao scenicspotInfoDao = new ScenicspotInfoDao();
         String cityName = result.getCityName();
-        String type = result.getType();
-        String sql = "";
-        if (type.equals("")) {
-            sql = "select DISTINCT * from scenicspot_info where city = '" + cityName + "' LIMIT 0 ,30;";
-        } else {
-            sql = "select DISTINCT * from scenicspot_info where city = '" + cityName + "' and type = '" + type + "' LIMIT 0 ,30;";
-        }
+        String sql = "select DISTINCT * from scenicspot_info where city = '" + cityName + "' LIMIT 0 ,30;";
         ArrayList<ScenicspotInfo> arr = scenicspotInfoDao.queryInfo(sql);
         scenicspotInfoDao.closeCon();
         return arr;
@@ -97,5 +92,4 @@ public class Control {
         cityAreaDao.closeCon();
         return arr;
     }
-
 }

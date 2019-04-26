@@ -12,18 +12,6 @@ public class CityToQueryAttractionResult {
      * 城市名
      */
     private String cityName;
-    /**
-     * 景点类型
-     */
-    private String type;
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public String getCityName() {
         return cityName;
