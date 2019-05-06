@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.attractions.control;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

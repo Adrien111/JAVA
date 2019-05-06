@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.attractions.control;
 
 import com.attractions.dao.AdminInfoDao;
 import com.attractions.dao.UserInfoDao;
