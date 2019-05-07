@@ -30,6 +30,8 @@ public class ScenicspotInfoDao extends BaseDao {
                 scenicspotInfo.setAddress(resultSet.getString("address"));
                 scenicspotInfo.setId(resultSet.getString("id"));
                 scenicspotInfo.setType(resultSet.getString("type"));
+                scenicspotInfo.setLAT(resultSet.getFloat("LAT"));
+                scenicspotInfo.setLONG(resultSet.getFloat("LONG"));
         }catch(SQLException e){
             e.printStackTrace();
         }

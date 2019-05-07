@@ -28,11 +28,11 @@ public class ScenicspotInfo {
     /**
      * 景点经度
      */
-    private String LONG;
+    private float LONG;
     /**
      * 景点维度
      */
-    private String LAT;
+    private float LAT;
     /**
      * 景点图片地址
      */
@@ -146,19 +146,19 @@ public class ScenicspotInfo {
         this.city = city;
     }
 
-    public String getLONG() {
+    public float getLONG() {
         return LONG;
     }
 
-    public void setLONG(String LONG) {
+    public void setLONG(float LONG) {
         this.LONG = LONG;
     }
 
-    public String getLAT() {
+    public float getLAT() {
         return LAT;
     }
 
-    public void setLAT(String LAT) {
+    public void setLAT(float LAT) {
         this.LAT = LAT;
     }
 
