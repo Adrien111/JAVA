@@ -1,5 +1,4 @@
 package com.attractions.dao;
-
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;

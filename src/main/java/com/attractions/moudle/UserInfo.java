@@ -27,6 +27,10 @@ public class UserInfo {
      * 用户所在城市
      */
     private String userCity;
+    /**
+     * 用户头像
+     */
+    private String avatarImage;
 
     public String getUserId() {
         return userId;
@@ -66,5 +70,13 @@ public class UserInfo {
 
     public void setUserCity(String userCity) {
         this.userCity = userCity;
+    }
+
+    public String getAvatarImage() {
+        return avatarImage;
+    }
+
+    public void setAvatarImage(String avatrImage) {
+        this.avatarImage = avatrImage;
     }
 }

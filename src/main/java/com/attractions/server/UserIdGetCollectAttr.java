@@ -12,6 +12,14 @@ public class UserIdGetCollectAttr {
      * 用户id
      */
     private String userId;
+    /**
+     * 页码
+     */
+    private int page;
+    /**
+     * 每页显示数量
+     */
+    private int row;
 
     public String getUserId() {
         return userId;
@@ -19,5 +27,21 @@ public class UserIdGetCollectAttr {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
     }
 }

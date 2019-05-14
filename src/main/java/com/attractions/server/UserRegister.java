@@ -1,12 +1,16 @@
 package com.attractions.server;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.Serializable;
+
 /**
  * 接受用户注册时的参数
  *
- * @auther leidian
+ * @authr leidian
  * @date 2019/04/26
  */
-public class UserRegister {
+public class UserRegister implements Serializable {
     /**
      * 用户名
      */
@@ -23,6 +27,16 @@ public class UserRegister {
      * 用户创建时间
      */
     private String userCreateDate;
+
+    private String acatarImage;
+
+    public String getAcatarImage() {
+        return acatarImage;
+    }
+
+    public void setAcatarImage(String acatarImage) {
+        this.acatarImage = acatarImage;
+    }
 
     public String getUserName() {
         return userName;

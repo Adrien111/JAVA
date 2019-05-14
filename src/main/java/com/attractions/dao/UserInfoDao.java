@@ -27,6 +27,7 @@ public class UserInfoDao extends BaseDao {
             userInfo.setUserName(resultSet.getString("user_name"));
             userInfo.setUserPassword(resultSet.getString("user_password"));
             userInfo.setUserCreateDate(resultSet.getString("user_create_date"));
+            userInfo.setAvatarImage(resultSet.getString("AvatarImg"));
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * 关于操作景点信息表的操作
  *
- * @auther 雷典
+ * @author leidian
  * @date 2019/04/18
  */
 public class ScenicspotInfoDao extends BaseDao {

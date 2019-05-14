@@ -5,11 +5,11 @@ import com.attractions.dao.CityAreaDao;
 import com.attractions.dao.ScenicspotInfoDao;
 import com.attractions.moudle.CityArea;
 import com.attractions.moudle.ScenicspotInfo;
+import com.attractions.control.*;
 import com.attractions.server.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.String;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @RestController
@@ -26,7 +26,9 @@ public class Scenicspot {
     public ArrayList<ScenicspotInfo> cityToQueryAttraction(@RequestBody CityToQueryAttractionResult result) {
         ScenicspotInfoDao scenicspotInfoDao = new ScenicspotInfoDao();
         String cityName = result.getCityName();
-        String sql = "select DISTINCT * from scenicspot_info where city = '" + cityName + "' LIMIT 0 ,30;";
+        int page = result.getPage();
+        int row = result.getRow();
+        String sql = "select DISTINCT * from scenicspot_info where city = '" + cityName + "' LIMIT "+page*row+" ,"+row+";";
         ArrayList<ScenicspotInfo> arr = scenicspotInfoDao.queryInfo(sql);
         scenicspotInfoDao.closeCon();
         return arr;
@@ -105,7 +107,7 @@ public class Scenicspot {
     public ArrayList<CityArea> cityNameToCityArea(@RequestBody CityNameToCityArea result) {
         CityAreaDao cityAreaDao = new CityAreaDao();
         String cityName = result.getCityName();
-        String sql = "select DISTINCT area from scenicspot_info where city = '" + cityName + "'";
+        String sql = "select DISTINCT area from scenicspot_info where city = '" + cityName + "' and (area like '%区' or area like '%县')";
         ArrayList<CityArea> arr = cityAreaDao.queryInfo(sql);
         cityAreaDao.closeCon();
         return arr;

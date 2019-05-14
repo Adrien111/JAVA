@@ -6,15 +6,19 @@ import com.attractions.dao.UserInfoDao;
 import com.attractions.moudle.ScenicspotInfo;
 import com.attractions.moudle.UserCollect;
 import com.attractions.moudle.UserInfo;
+import com.attractions.control.*;
 import com.attractions.server.*;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.net.UnknownServiceException;
 import java.util.ArrayList;
 
+/**
+ *用户操作接口
+ *
+ * @author leidian
+ * @date 2019/05/08
+ */
 @RestController
 public class User {
 
@@ -39,7 +43,6 @@ public class User {
         return null;
     }
 
-
     /**
      * 用户注册
      *
@@ -54,13 +57,14 @@ public class User {
         String userName = result.getUserName();
         String userPassword = result.getUserPassword();
         String userCreateDate = result.getUserCreateDate();
+        String avatarImage = result.getAcatarImage();
         ArrayList<UserInfo> arr = userInfoDao.queryInfo("select * from userinfo");
         for(UserInfo user : arr){
             if(user.getUserName().equals(userName)){
                 return false;
             }
         }
-        String sql = "insert into userinfo values('" + userId + "' , '" + userName + "' , '" + userPassword + "' , '" + userCreateDate + "' );";
+        String sql = "insert into userinfo values('" + userId + "' , '" + userName + "' , '" + userPassword + "' , '" + userCreateDate +"' ,'"+avatarImage+"' );";
         boolean flag = userInfoDao.updateInfo(sql);
         userInfoDao.closeCon();
         return flag;
@@ -76,7 +80,7 @@ public class User {
     public UserInfo getUserInfo(@RequestBody UserIdGetUserInfo result){
         UserInfoDao userInfoDao = new UserInfoDao();
         String userId = result.getUserId();
-        String sql = "select * from userinfo where user_id = \'" + userId + "\'";
+        String sql = "select * from userinfo where user_id = '" + userId + "'";
         ArrayList<UserInfo> arr = userInfoDao.queryInfo(sql);
         userInfoDao.closeCon();
         return arr.get(0);
@@ -92,7 +96,9 @@ public class User {
     public ArrayList<ScenicspotInfo> userIdGetCollectAttr(@RequestBody UserIdGetCollectAttr result){
         ScenicspotInfoDao scenicspotInfoDao = new ScenicspotInfoDao();
         String userId = result.getUserId();
-        String sql = "SELECT * from scenicspot_info RIGHT JOIN usercollect on scenicspot_info.id = usercollect.attrId and userId = '"+userId+"';";
+        int page = result.getPage();
+        int row = result.getRow();
+        String sql = "SELECT * from scenicspot_info, usercollect where scenicspot_info.id = usercollect.attrId and userId = '"+userId+"' LIMIT "+page*row+","+row+";";
         ArrayList<ScenicspotInfo> arr = scenicspotInfoDao.queryInfo(sql);
         scenicspotInfoDao.closeCon();
         return arr;

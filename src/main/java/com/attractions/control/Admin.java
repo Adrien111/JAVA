@@ -1,13 +1,8 @@
 package com.attractions.control;
 
 import com.attractions.dao.AdminInfoDao;
-import com.attractions.dao.UserInfoDao;
 import com.attractions.moudle.AdminInfo;
-import com.attractions.moudle.UserInfo;
 import com.attractions.server.AdminNameToChexkIsLogin;
-import com.attractions.server.UserNameToChexkIsLogin;
-import com.attractions.server.UserRegister;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
